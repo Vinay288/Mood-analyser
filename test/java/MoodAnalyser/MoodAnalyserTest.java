@@ -14,23 +14,30 @@ import org.junit.Assert;
 public class MoodAnalyserTest {
 	@Test
 	public void test_Sad_MoodAnalysis() {
-		MoodAnalyser moodAnalyser = new MoodAnalyser();
-		String mood = moodAnalyser.analyseMood("why am i sad?");
+		MoodAnalyser moodAnalyser = new MoodAnalyser("why am i sad?");
+		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("SAD"));
 	}
 
 	@Test
 	public void test_Happy_MoodAnalysis() {
-		MoodAnalyser moodAnalyser = new MoodAnalyser();
-		String mood = moodAnalyser.analyseMood("am i happy?");
+		MoodAnalyser moodAnalyser = new MoodAnalyser("am i happy?");
+		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
 	}
 
 	@Test
 	public void Given_AnyAsMood_shouldReturnHappy() {
-		MoodAnalyser moodAnalyser = new MoodAnalyser();
-		String mood = moodAnalyser.analyseMood("i am in any mood?");
+		MoodAnalyser moodAnalyser = new MoodAnalyser("i am in any mood?");
+		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
+	}
+	
+	@Test
+	public void Given_NoMessage_shouldReturnSad() {
+		MoodAnalyser moodAnalyser = new MoodAnalyser();
+		String mood = moodAnalyser.analyseMood();
+		Assert.assertThat(mood, CoreMatchers.is("SAD"));
 	}
 
 }
