@@ -32,12 +32,21 @@ public class MoodAnalyserTest {
 		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
 	}
-	
+
 	@Test
 	public void Given_NoMessage_shouldReturnSad() {
 		MoodAnalyser moodAnalyser = new MoodAnalyser();
 		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("SAD"));
 	}
-
+	
+	@Test
+	public void Given_NullMood_shouldReturnHappy() throws Exception {
+		MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+			String mood = moodAnalyser.analyseMood();
+			ExpectedException exceptionRule=ExpectedException.none();
+			exceptionRule.expect(MoodAnalysisException.class);
+			Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
+		
+	}
 }
