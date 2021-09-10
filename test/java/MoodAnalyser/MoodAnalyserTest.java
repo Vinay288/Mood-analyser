@@ -13,40 +13,48 @@ import org.junit.Assert;
 
 public class MoodAnalyserTest {
 	@Test
-	public void test_Sad_MoodAnalysis() {
+	public void test_Sad_MoodAnalysis() throws MoodAnalysisException {
 		MoodAnalyser moodAnalyser = new MoodAnalyser("why am i sad?");
 		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("SAD"));
 	}
 
 	@Test
-	public void test_Happy_MoodAnalysis() {
+	public void test_Happy_MoodAnalysis() throws MoodAnalysisException {
 		MoodAnalyser moodAnalyser = new MoodAnalyser("am i happy?");
 		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
 	}
 
 	@Test
-	public void Given_AnyAsMood_shouldReturnHappy() {
+	public void Given_AnyAsMood_shouldReturnHappy() throws MoodAnalysisException {
 		MoodAnalyser moodAnalyser = new MoodAnalyser("i am in any mood?");
 		String mood = moodAnalyser.analyseMood();
 		Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
 	}
 
 	@Test
-	public void Given_NoMessage_shouldReturnSad() {
+	public void Given_NoMessage_shouldThrowException() throws MoodAnalysisException {
 		MoodAnalyser moodAnalyser = new MoodAnalyser();
-		String mood = moodAnalyser.analyseMood();
-		Assert.assertThat(mood, CoreMatchers.is("SAD"));
+		try {
+			String mood = moodAnalyser.analyseMood();
+			Assert.assertThat(mood, CoreMatchers.is("SAD"));
+		} catch (MoodAnalysisException e) {
+			Assert.assertEquals(ExceptionType.ENTERED_EMPTY, e.type);
+		}
 	}
-	
+
 	@Test
 	public void Given_NullMood_shouldReturnHappy() throws Exception {
 		MoodAnalyser moodAnalyser = new MoodAnalyser(null);
+		try {
 			String mood = moodAnalyser.analyseMood();
-			ExpectedException exceptionRule=ExpectedException.none();
+			ExpectedException exceptionRule = ExpectedException.none();
 			exceptionRule.expect(MoodAnalysisException.class);
 			Assert.assertThat(mood, CoreMatchers.is("HAPPY"));
-		
+		} catch (MoodAnalysisException e) {
+			Assert.assertEquals(ExceptionType.ENTERED_NULL, e.type);
+		}
+
 	}
 }
