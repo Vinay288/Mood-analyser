@@ -13,7 +13,7 @@ public class MoodAnalyser {
 		this.message = message;
 	}
 
-	public String analyseMood() throws MoodAnalysisException {
+	public String analyseMood() {
 		try {
 			if(message.length()==0)
 				throw new MoodAnalysisException(ExceptionType.ENTERED_EMPTY,"Add proper message");
