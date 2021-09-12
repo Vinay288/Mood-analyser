@@ -1,6 +1,6 @@
 package MoodAnalyser;
 
-public class MoodAnalysisException extends Exception {
+public class MoodAnalysisException extends RuntimeException {
 
 	enum ExceptionType{
 		ENTERED_NULL,ENTERED_EMPTY
